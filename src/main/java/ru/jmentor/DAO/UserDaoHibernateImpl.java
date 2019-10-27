@@ -5,13 +5,11 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.jmentor.model.User;
-
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class UserDaoHibernateImpl implements UserDao {
-
     private SessionFactory sessionFactory;
 
     @Autowired
@@ -46,17 +44,11 @@ public class UserDaoHibernateImpl implements UserDao {
                     .setParameter("userName", userName)
                     .setParameter("userPassword", userPassword)
                     .getSingleResult();
-            if(user != null){
-                return true;
-            }
+            if(user != null){ return true; }
         } catch (Exception e){
             System.out.println("Ошибка верификации по логину и паролю");
             e.getStackTrace();
-        } finally {
-            if (session.isOpen()) {
-                session.close();
-            }
-        }
+        } finally { if (session.isOpen()) { session.close(); } }
         return false;
     }
 
@@ -70,11 +62,7 @@ public class UserDaoHibernateImpl implements UserDao {
         } catch (Exception e){
             System.out.println("Ошибка получения всех пользователей");
             session.getTransaction().rollback();
-        } finally {
-            if (session.isOpen()) {
-                session.close();
-            }
-        }
+        } finally { if (session.isOpen()) { session.close(); } }
         return list;
     }
 
@@ -87,11 +75,7 @@ public class UserDaoHibernateImpl implements UserDao {
         } catch (Exception e){
             System.out.println("Ошибка редактирования пользователя");
             session.getTransaction().rollback();
-        } finally {
-            if (session.isOpen()) {
-                session.close();
-            }
-        }
+        } finally { if (session.isOpen()) { session.close(); } }
     }
 
     @Override
@@ -104,11 +88,7 @@ public class UserDaoHibernateImpl implements UserDao {
         } catch (Exception e){
             System.out.println("Ошибка удаения пользователя");
             session.getTransaction().rollback();
-        } finally {
-            if (session.isOpen()) {
-                session.close();
-            }
-        }
+        } finally { if (session.isOpen()) { session.close(); } }
     }
 
     public void add(User user) {
@@ -121,11 +101,7 @@ public class UserDaoHibernateImpl implements UserDao {
             System.out.println("Ошибка добавления пользователя");
             e.printStackTrace();
             session.getTransaction().rollback();
-        } finally {
-            if (session.isOpen()) {
-                session.close();
-            }
-        }
+        } finally { if (session.isOpen()) { session.close(); } }
     }
 
     @Override
@@ -135,17 +111,11 @@ public class UserDaoHibernateImpl implements UserDao {
             User user = session.createQuery(SQL_SELECT_BY_NAME, User.class)
                     .setParameter("userName", userName)
                     .getSingleResult();
-            if(user != null){
-                return true;
-            }
+            if(user != null){ return true; }
         } catch (Exception e){
             System.out.println("Ошибка нахождения по имени пользователя");
             e.getStackTrace();
-        } finally {
-            if (session.isOpen()) {
-                session.close();
-            }
-        }
+        } finally { if (session.isOpen()) { session.close(); } }
         return false;
     }
 
@@ -157,17 +127,11 @@ public class UserDaoHibernateImpl implements UserDao {
             user = session.createQuery(SQL_SELECT_BY_NAME, User.class)
                     .setParameter("userName", userName)
                     .getSingleResult();
-            if(user != null){
-                return user;
-            }
+            if(user != null){ return user; }
         } catch (Exception e){
             System.out.println("Ошибка нахождения по имени пользователя");
             e.getStackTrace();
-        } finally {
-            if (session.isOpen()) {
-                session.close();
-            }
-        }
+        } finally { if (session.isOpen()) { session.close(); } }
         return user;
     }
 }

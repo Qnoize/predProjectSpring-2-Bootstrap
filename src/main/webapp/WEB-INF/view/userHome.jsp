@@ -2,9 +2,7 @@
          pageEncoding="windows-1251"%>
 <html>
 <body>
-Hello  ${requestScope.userName}<br>
-User - role :   ${requestScope.userRole}
-</br>
+Hello  ${requestScope.userModel}<br>
 <form method="POST" action="/userHome">
     <button><a href="/" style="text-decoration: none; color: black;">Back to login</a></button>
 </form>

@@ -2,18 +2,15 @@ package ru.jmentor.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ru.jmentor.model.User;
 import ru.jmentor.service.UserService;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
 public class MainController {
-
     private UserService service;
 
     @Autowired
@@ -27,8 +24,10 @@ public class MainController {
     @PostMapping(value = "/")
     public ModelAndView userAutorization(
             @RequestParam("userName") String userName,
-            @RequestParam("userPassword") String userPassword) {
+            @RequestParam("userPassword") String userPassword,
+            HttpSession session) {
         if(service.ExistUserByNameAndPassword(userName, userPassword)) {
+            session.setAttribute("userModel", userName);
             String role = "user";
             if (service.getByName(userName).getRole().toString().contains("admin")) { role = "admin"; }
             if (role.equals("admin")) { return new ModelAndView("redirect:/admin"); }
@@ -87,6 +86,13 @@ public class MainController {
         return new ModelAndView("redirect:/register");
     }
 
-    @GetMapping(value = "userHome")
-    public ModelAndView viewUserHomePage() { return new ModelAndView("userHome"); }
+    @GetMapping(value = "/userHome")
+    public ModelAndView viewUserHomePage(HttpSession session) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("userModel", session.getAttribute("userModel"));
+        modelAndView.setViewName("userHome");
+        return modelAndView;
+    }
+    @PostMapping(value = "/userHome")
+    public ModelAndView userHomePage() { return new ModelAndView("loginUser"); }
 }
