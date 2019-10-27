@@ -2,7 +2,7 @@
          pageEncoding="windows-1251"%>
 <html>
 <body>
-Hello  ${requestScope.userLogin}<br>
+Hello  ${requestScope.userName}<br>
 User - role :   ${requestScope.userRole}
 </br>
 <form method="POST" action="/userHome">

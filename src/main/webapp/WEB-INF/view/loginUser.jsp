@@ -3,17 +3,16 @@
          pageEncoding="windows-1251"%>
 <html>
 <body>
-<div align="center">
 <form method="POST" action="/">
     <p><b>Autorization user </b></p>
     <table width="100%" cellspacing="0" cellpadding="4">
         <tr>
             <td align="right" width="100">Login</td>
-            <td><input class="input-field"  type="text" name="login"></td>
+            <td><input class="input-field"  type="text" name="userName"></td>
         </tr>
         <tr>
             <td align="right">Password</td>
-            <td><input class="input-field" type="password" name="password"></td>
+            <td><input class="input-field" type="password" name="userPassword"></td>
         </tr>
         <tr>
             <td></td>
@@ -24,6 +23,5 @@
         </tr>
     </table>
 </form>
-</div>
 </body>
 </html>

@@ -8,35 +8,35 @@ import java.util.Set;
 @Entity
 @Table(name = "roleTable")
 public class Role {
+    private Long id;
+    private String userRole;
+    private Set<User> users = new HashSet<>();
+
+    public Role() { }
+
+    public Role(Long id, String userRole) {
+        this.id = id;
+        this.userRole = userRole;
+    }
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    public Long getId() { return id; }
 
     @Column(name = "userRole")
-    private String userRole;
+    public String getUserRole() { return userRole; }
 
     @ManyToMany
     @JoinTable(
             name = "userRole",
             joinColumns = @JoinColumn(name = "roleId"),
             inverseJoinColumns = @JoinColumn(name = "userId"))
-    private Set<User> users = new HashSet<>();
-
-    public Role() { }
-
-    public Role(Long id, String userRole) { }
-
-    public Long getId() { return id; }
+    public Set<User> getUsers() { return users; }
 
     public void setId(Long id) { this.id = id; }
 
-    public String getUserRole() { return userRole; }
-
     public void setUserRole(String userRole) { this.userRole = userRole; }
-
-    public Set<User> getUsers() { return users; }
 
     public void setUsers(Set<User> users) { this.users = users; }
 

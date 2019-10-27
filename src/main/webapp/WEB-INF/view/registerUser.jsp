@@ -8,15 +8,15 @@
     <table width="100%" cellspacing="0" cellpadding="4">
         <tr>
             <td align="right" width="100">Login</td>
-            <td><input type="text" name="login"></td>
+            <td><input type="text" name="userName"></td>
         </tr>
         <tr>
             <td align="right">Password</td>
-            <td><input type="password" name="password"></td>
+            <td><input type="password" name="userPassword"></td>
         </tr>
         <tr>
             <td align="right">Email</td>
-            <td><input type="text" name="email"></td>
+            <td><input type="text" name="userEmail"></td>
         </tr>
         <tr>
             <td></td>
@@ -36,9 +36,9 @@
     </tr>
     <c:forEach items="${requestScope.list}" var="user">
         <tr>
-            <td> ${user.userId} </td>
-            <td> ${user.name} </td>
-            <td> ${user.email} </td>
+            <td> ${user.id} </td>
+            <td> ${user.userName} </td>
+            <td> ${user.userEmail} </td>
         </tr>
     </c:forEach>
 </table>

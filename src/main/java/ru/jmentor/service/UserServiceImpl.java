@@ -1,38 +1,52 @@
 package ru.jmentor.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import ru.jmentor.DAO.UserDao;
 import ru.jmentor.model.Role;
 import ru.jmentor.model.User;
-import ru.jmentor.repository.UserRepository;
 import java.util.Collections;
 import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-    private UserRepository repository;
+    private UserDao userDaoHibernate;
 
-    @Override
-    public List<User> getAllUsers(){ return repository.findAll(); }
-    @Override
-    public void saveUser(User user){
-        if(!ExistUserByNameAndPassword(user.getUserName(), user.getUserPassword())){
-            user.setRole(Collections.singleton(new Role(1L, "user")));
-            repository.save(user);
-        }
+    @Autowired
+    public void setRepository(UserDao userDaoHibernate) {
+        this.userDaoHibernate = userDaoHibernate;
     }
 
-    private boolean userExistByName(String userName) { return repository.isExistUserByName(userName); }
-
     @Override
-    public User getUserById(Long id){ return repository.findById(id).get(); }
+    @Transactional
+    public List<User> getAllUsers(){ return userDaoHibernate.getAll(); }
     @Override
-    public void deleteUserById(Long id){ repository.deleteById(id); }
+    @Transactional
+    public User getUserById(Long id){ return userDaoHibernate.getById(id); }
     @Override
-    public void editUser(User user){ repository.save(user); }
+    @Transactional
+    public void deleteUserById(Long id){ userDaoHibernate.delete(id); }
     @Override
-    public User getByName(String name) { return repository.getByName(name); }
-
-    public boolean ExistUserByNameAndPassword(String userName, String userPassword){ return repository.isExistUserByNameAndPassword(userName,userPassword); }
-
+    @Transactional
+    public void editUser(User user){ userDaoHibernate.edit(user); }
+    @Override
+    @Transactional
+    public void saveUser(User user){
+        if(!userExistByName(user.getUserName())){
+            user.setRole(Collections.singleton(new Role(1L, "user")));
+            userDaoHibernate.add(user);
+        }
+    }
+    @Transactional
+    public boolean userExistByName(String userName) { return userDaoHibernate.isExistUserByName(userName); }
+    @Override
+    @Transactional
+    public User getByName(String userName) { return userDaoHibernate.getByName(userName); }
+    @Override
+    @Transactional
+    public boolean ExistUserByNameAndPassword(String userName, String userPassword){
+        return userDaoHibernate.isExistUserByNameAndPassword(userName,userPassword);
+    }
 }

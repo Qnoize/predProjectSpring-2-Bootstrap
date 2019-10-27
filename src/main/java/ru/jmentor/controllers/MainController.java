@@ -1,36 +1,40 @@
 package ru.jmentor.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import ru.jmentor.model.User;
-import ru.jmentor.service.UserServiceImpl;
+import ru.jmentor.service.UserService;
 import java.util.List;
 
 @Controller
 public class MainController {
 
-    private UserServiceImpl service;
+    private UserService service;
+
+    @Autowired
+    public void setService(UserService service) {
+        this.service = service;
+    }
 
     @GetMapping(value = "/")
     public ModelAndView viewLoginPage() { return new ModelAndView("loginUser"); }
 
     @PostMapping(value = "/")
-    public String userAutorization(
-            @RequestParam("login") String userName,
-            @RequestParam("password") String userPassword) {
-        String role = "user";
-        if(service.getByName(userName).getRole().toString().contains("admin")){
-            role = "admin";
+    public ModelAndView userAutorization(
+            @RequestParam("userName") String userName,
+            @RequestParam("userPassword") String userPassword) {
+        if(service.ExistUserByNameAndPassword(userName, userPassword)) {
+            String role = "user";
+            if (service.getByName(userName).getRole().toString().contains("admin")) { role = "admin"; }
+            if (role.equals("admin")) { return new ModelAndView("redirect:/admin"); }
+            else { return new ModelAndView("redirect:/userHome"); }
         }
-        if(!role.equals("admin")) {
-            return "adminMainPage";
-        } else {
-            return "userHome";
-        }
+        return new ModelAndView("redirect:/");
     }
 
     @GetMapping(value = "/admin")
@@ -40,48 +44,34 @@ public class MainController {
     }
 
     @PostMapping(value = "/admin")
-    public String adminCreateUser(
-            @RequestParam("login") String userName,
-            @RequestParam("password") String userPassword,
-            @RequestParam("email") String userEmail) {
-        if (!userName.isEmpty()&& !userPassword.isEmpty()) {
-            User user = new User(userName, userPassword, userEmail);
-            service.saveUser(user);
-        }
-        return "adminMainPage";
+    public ModelAndView adminCreateUser(
+            @ModelAttribute("user") User user) {
+        if (!user.getUserName().isEmpty()&& !user.getUserPassword().isEmpty()) { service.saveUser(user); }
+        return new ModelAndView("redirect:/admin");
     }
 
     @GetMapping(value = "/admin/delete")
-    public String adminDeleteUser(
-            @RequestParam("userId") Long userId,
+    public ModelAndView adminDeleteUser(
+            @RequestParam("id") Long id,
             @RequestParam("delete") String delete) {
-        if (delete != null && userId != null) {
-            service.deleteUserById(userId);
-        }
-        return "/adminMainPage";
+        if (delete != null && id != null) { service.deleteUserById(id); }
+        return new ModelAndView("redirect:/admin");
     }
 
     @GetMapping(value = "/admin/edit")
     public ModelAndView editPage(
-            @RequestParam("userId") Long userId,
-            @RequestParam("edit") String edit,
-            Model model) {
+            @RequestParam("id") Long id,
+            @RequestParam("edit") String edit) {
         User user = null;
-        if (edit != null && userId != null) {
-            user = service.getUserById(userId);
-        }
+        if (edit != null && id != null) { user = service.getUserById(id); }
         return new ModelAndView("adminEditUser", "user", user);
     }
 
     @PostMapping(value = "/admin/edit")
     public ModelAndView adminEditUser(
-            @RequestParam("userId") Long userId,
-            @RequestParam("login") String userName,
-            @RequestParam("password") String userPassword,
-            @RequestParam("email") String userEmail) {
-        User user = new User(userId, userName, userPassword, userEmail);
+            @ModelAttribute("user") User user) {
         service.editUser(user);
-        return new ModelAndView("adminMainPage");
+        return new ModelAndView("redirect:/admin");
     }
 
     @GetMapping(value = "/register")
@@ -92,14 +82,9 @@ public class MainController {
 
     @PostMapping(value = "/register")
     public ModelAndView registerNewUser(
-            @RequestParam("login") String userName,
-            @RequestParam("password") String userPassword,
-            @RequestParam("email") String userEmail) {
-        if (!userName.isEmpty()&& !userPassword.isEmpty()) {
-            User user = new User(userName, userPassword, userEmail);
-            service.saveUser(user);
-        }
-        return new ModelAndView("loginUser");
+            @ModelAttribute("user") User user) {
+        if (!user.getUserName().isEmpty()&& !user.getUserPassword().isEmpty()) { service.saveUser(user); }
+        return new ModelAndView("redirect:/register");
     }
 
     @GetMapping(value = "userHome")

@@ -1,25 +1,22 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <%@ page language="java" contentType="text/html;charset=windows-1251"
          pageEncoding="windows-1251"%>
 <html>
 <body>
-Work with - ${requestScope.with}<br>
-User - role :  ${requestScope.userRole}
 <form method="POST" action="/admin">
     <p><b>Add new user</b></p>
     <table width="100%" cellspacing="0" cellpadding="4">
         <tr>
             <td align="right" width="100">Login</td>
-            <td><input type="text" name="login"></td>
+            <td><input type="text" name="userName"></td>
         </tr>
         <tr>
             <td align="right">Password</td>
-            <td><input type="password" name="password"></td>
+            <td><input type="password" name="userPassword"></td>
         </tr>
         <tr>
             <td align="right">Email</td>
-            <td><input type="text" name="email"></td>
+            <td><input type="text" name="userEmail"></td>
         </tr>
         <tr>
             <td></td>
@@ -40,18 +37,18 @@ User - role :  ${requestScope.userRole}
     </tr>
     <c:forEach items="${requestScope.list}" var="user">
         <tr>
-            <td> ${user.userId} </td>
-            <td> ${user.name} </td>
-            <td> ${user.password} </td>
-            <td> ${user.email} </td>
+            <td> ${user.id} </td>
+            <td> ${user.userName} </td>
+            <td> ${user.userPassword} </td>
+            <td> ${user.userEmail} </td>
             <td>
                 <form method="GET" action="/admin/edit">
-                    <input type="submit" value="Edit" name="edit">
-                    <input type="hidden" name="userId" value="${user.userId}">
+                    <input type="submit" value="edit" name="edit">
+                    <input type="hidden" name="id" value="${user.id}">
                 </form>
                 <form method="GET" action="/admin/delete">
-                    <input type="submit" value="Delete" name="delete">
-                    <input type="hidden" name="userId" value="${user.userId}">
+                    <input type="submit" value="delete" name="delete">
+                    <input type="hidden" name="id" value="${user.id}">
                 </form>
             </td>
         </tr>

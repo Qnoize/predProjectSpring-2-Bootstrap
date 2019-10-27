@@ -8,29 +8,10 @@ import java.util.Set;
 @Entity
 @Table(name = "userTable")
 public class User {
-
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "userName")
     private String userName;
-
-    @Column(name = "userPassword")
     private String userPassword;
-
-    @Column(name = "userEmail")
     private String userEmail;
-
-    @ManyToMany(
-            targetEntity = Role.class,
-            fetch = FetchType.EAGER,
-            cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinTable(
-            name = "userRole",
-            joinColumns = @JoinColumn(name = "userId"),
-            inverseJoinColumns = @JoinColumn(name = "roleId"))
     private Set<Role> role = new HashSet<>();
 
     public User() { }
@@ -41,20 +22,36 @@ public class User {
         this.userEmail = userEmail;
     }
 
-    public User(Long userId, String userName, String userPassword, String userEmail) {
-        this.id = userId;
+    public User(Long id, String userName, String userPassword, String userEmail) {
+        this.id = id;
         this.userName = userName;
         this.userPassword = userPassword;
         this.userEmail = userEmail;
     }
 
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() { return id; }
 
+    @Column(name = "userName")
     public String getUserName() { return userName; }
 
+    @Column(name = "userPassword")
     public String getUserPassword() { return userPassword; }
 
+    @Column(name = "userEmail")
     public String getUserEmail() { return userEmail; }
+
+    @ManyToMany(
+            targetEntity = Role.class,
+            fetch = FetchType.EAGER,
+            cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinTable(
+            name = "userRole",
+            joinColumns = @JoinColumn(name = "userId"),
+            inverseJoinColumns = @JoinColumn(name = "roleId"))
+    public Set<Role> getRole() { return role; }
 
     public void setId(Long id) { this.id = id; }
 
@@ -63,8 +60,6 @@ public class User {
     public void setUserPassword(String userPassword) { this.userPassword = userPassword; }
 
     public void setUserEmail(String userEmail) { this.userEmail = userEmail; }
-
-    public Set<Role> getRole() { return role; }
 
     public void setRole(Set<Role> role) { this.role = role; }
 

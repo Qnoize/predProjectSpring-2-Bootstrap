@@ -9,5 +9,6 @@ public interface UserService {
     User getUserById(Long id);
     void deleteUserById(Long id);
     void editUser(User user);
-    User getByName(String name);
+    boolean ExistUserByNameAndPassword(String userName, String userPassword);
+    User getByName(String userName);
 }
