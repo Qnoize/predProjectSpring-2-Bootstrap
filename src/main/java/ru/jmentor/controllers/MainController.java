@@ -27,9 +27,10 @@ public class MainController {
             @RequestParam("userPassword") String userPassword,
             HttpSession session) {
         if(service.ExistUserByNameAndPassword(userName, userPassword)) {
-            session.setAttribute("userModel", userName);
+            session.setAttribute("name", userName);
             String role = "user";
             if (service.getByName(userName).getRole().toString().contains("admin")) { role = "admin"; }
+            session.setAttribute("role", role);
             if (role.equals("admin")) { return new ModelAndView("redirect:/admin"); }
             else { return new ModelAndView("redirect:/userHome"); }
         }
@@ -89,7 +90,8 @@ public class MainController {
     @GetMapping(value = "/userHome")
     public ModelAndView viewUserHomePage(HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("userModel", session.getAttribute("userModel"));
+        modelAndView.addObject("name", session.getAttribute("name"));
+        modelAndView.addObject("role", session.getAttribute("role"));
         modelAndView.setViewName("userHome");
         return modelAndView;
     }

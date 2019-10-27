@@ -2,10 +2,20 @@
 <%@ page language="java" contentType="text/html;charset=windows-1251"
          pageEncoding="windows-1251"%>
 <html>
+<head>
+    <link href="<c:url value="/res/style.css"/>" rel="stylesheet" type="text/css"/>
+</head>
 <body>
 <form method="POST" action="/">
-    <p><b>Autorization user </b></p>
-    <table width="100%" cellspacing="0" cellpadding="4">
+    <table width="50%" cellspacing="0" cellpadding="4" align="center">
+        <tr>
+            <td></td>
+            <td>
+                <div align="center">
+                    <p><h2>Autorization user</h2></p>
+                </div>
+            </td>
+        </tr>
         <tr>
             <td align="right" width="100">Login</td>
             <td><input class="input-field"  type="text" name="userName"></td>

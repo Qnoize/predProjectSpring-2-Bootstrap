@@ -2,10 +2,20 @@
 <%@ page language="java" contentType="text/html;charset=windows-1251"
          pageEncoding="windows-1251"%>
 <html>
+<head>
+    <link href="<c:url value="/res/style.css"/>" rel="stylesheet" type="text/css"/>
+</head>
 <body>
 <form method="POST" action="/admin/edit">
-    <p><b>Edit user with Id - ${user.id} </b></p>
-    <table width="100%" cellspacing="0" cellpadding="4" items="${requestScope.user}">
+    <table width="50%" cellspacing="0" cellpadding="4" items="${requestScope.user}" align="center">
+        <tr>
+            <td></td>
+            <td>
+                <div align="center">
+                    <p><h2>Edit user with Id - ${user.id}</h2></p>
+                </div>
+            </td>
+        </tr>
         <tr>
             <td align="right" width="100">Login</td>
             <td><input type="text" name="userName" value= ${user.userName}></td>
