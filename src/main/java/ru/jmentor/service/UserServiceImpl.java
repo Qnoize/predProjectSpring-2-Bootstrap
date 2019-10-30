@@ -30,7 +30,10 @@ public class UserServiceImpl implements UserService {
     public void deleteUserById(Long id){ userDaoHibernate.delete(id); }
     @Override
     @Transactional
-    public void editUser(User user){ userDaoHibernate.edit(user); }
+    public void editUser(User user){
+        user.setRole(Collections.singleton(new Role(1L, "user")));
+        userDaoHibernate.edit(user);
+    }
     @Override
     @Transactional
     public void saveUser(User user){

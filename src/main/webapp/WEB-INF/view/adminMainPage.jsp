@@ -44,6 +44,7 @@
                         <th>Name</th>
                         <th>Password</th>
                         <th>Email</th>
+                        <th>Action</th>
                     </tr>
                     <c:forEach items="${requestScope.list}" var="user">
                         <tr>
@@ -56,7 +57,7 @@
                                     <input type="submit" value="edit" name="edit">
                                     <input type="hidden" name="id" value="${user.id}">
                                 </form>
-                                <form method="GET" action="/admin/delete">
+                                <form method="POST" action="/admin/delete">
                                     <input type="submit" value="delete" name="delete">
                                     <input type="hidden" name="id" value="${user.id}">
                                 </form>
