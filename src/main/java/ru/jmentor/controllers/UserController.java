@@ -1,22 +1,13 @@
 package ru.jmentor.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
-import ru.jmentor.service.UserService;
 import javax.servlet.http.HttpSession;
 
 @Controller
 public class UserController {
-
-    private UserService service;
-
-    @Autowired
-    public void setService(UserService service) {
-        this.service = service;
-    }
 
     @GetMapping(value = "/userHome")
     public ModelAndView viewUserHomePage(

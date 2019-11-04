@@ -7,7 +7,7 @@
 </head>
 <body>
 <h3 align="center">${requestScope.error}</h3><br>
-<form method="POST" action="/login">
+<form method="POST">
     <table width="50%" cellspacing="0" cellpadding="4" align="center">
         <tr>
             <td></td>

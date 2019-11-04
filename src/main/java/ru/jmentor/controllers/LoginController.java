@@ -1,10 +1,7 @@
 package ru.jmentor.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,22 +33,6 @@ public class LoginController {
             modelAndView.addObject("error", "Wrong user Login or Password(GET)");
         }
         modelAndView.setViewName("loginUser");
-        return modelAndView;
-    }
-
-    @PostMapping(value = "/login")
-    public ModelAndView userAutorization(
-            @RequestParam("userName") String userName,
-            @RequestParam("userPassword") String userPassword,
-            HttpSession session,
-            ModelAndView modelAndView) {
-
-        if(service.ExistUserByNameAndPassword(userName, userPassword)) {
-           modelAndView.setViewName("userHome");
-        }
-        modelAndView.addObject("error", "Wrong user Login or Password(POST)");
-        modelAndView.setViewName("loginUser");
-
         return modelAndView;
     }
 }

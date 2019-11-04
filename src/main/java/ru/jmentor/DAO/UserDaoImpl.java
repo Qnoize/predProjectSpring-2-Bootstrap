@@ -44,7 +44,7 @@ public class UserDaoImpl implements UserDao {
                     .setParameter("userName", userName)
                     .setParameter("userPassword", userPassword)
                     .getSingleResult();
-            if(user != null){ return true; }
+            if(user != null){ return true; } else {return false;}
         } catch (Exception e){
             System.out.println("Ошибка верификации по логину и паролю");
             e.getStackTrace();

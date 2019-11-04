@@ -64,6 +64,8 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public boolean ExistUserByNameAndPassword(String userName, String userPassword){
-        return userDao.isExistUserByNameAndPassword(userName,userPassword);
+        User user = userDao.getByName(userName);
+        return userDao.isExistUserByNameAndPassword(userName,
+                passwordEncoder.encode(user.getUserPassword()));
     }
 }
