@@ -14,9 +14,10 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private UserDao userDao;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    public UserServiceImpl(PasswordEncoder passwordEncoder) { this.passwordEncoder = passwordEncoder; }
 
     @Autowired
     public void setRepository(UserDao userDaoHibernate) {
@@ -60,12 +61,5 @@ public class UserServiceImpl implements UserService {
         User user = userDao.getByName(userName);
         user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
         return user;
-    }
-    @Override
-    @Transactional
-    public boolean ExistUserByNameAndPassword(String userName, String userPassword){
-        User user = userDao.getByName(userName);
-        return userDao.isExistUserByNameAndPassword(userName,
-                passwordEncoder.encode(user.getUserPassword()));
     }
 }

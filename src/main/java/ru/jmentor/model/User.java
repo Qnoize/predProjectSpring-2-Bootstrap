@@ -5,7 +5,7 @@ import java.util.*;
 
 @Entity
 @Table(name = "userTable")
-public class User {
+public class User  {
     private Long id;
     private String userName;
     private String userPassword;
@@ -92,4 +92,5 @@ public class User {
                 ", userEmail='" + userEmail + '\'' +
                 '}';
     }
+
 }

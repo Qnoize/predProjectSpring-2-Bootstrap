@@ -10,6 +10,7 @@ import java.util.List;
 
 @Repository
 public class UserDaoImpl implements UserDao {
+
     private SessionFactory sessionFactory;
 
     @Autowired
@@ -110,10 +111,10 @@ public class UserDaoImpl implements UserDao {
         try {
             User user = session.createQuery(SQL_SELECT_BY_NAME, User.class)
                     .setParameter("userName", userName)
-                    .getSingleResult();
+                    .uniqueResult();
             if(user != null){ return true; }
         } catch (Exception e){
-            System.out.println("Ошибка нахождения по имени пользователя");
+            System.out.println("Ошибка нахождения по имени пользователя (isExistUserByName)");
             e.getStackTrace();
         } finally { if (session.isOpen()) { session.close(); } }
         return false;
@@ -129,7 +130,7 @@ public class UserDaoImpl implements UserDao {
                     .getSingleResult();
             if(user != null){ return user; }
         } catch (Exception e){
-            System.out.println("Ошибка нахождения по имени пользователя");
+            System.out.println("Ошибка нахождения по имени пользователя (getByName)");
             e.getStackTrace();
         } finally { if (session.isOpen()) { session.close(); } }
         return user;

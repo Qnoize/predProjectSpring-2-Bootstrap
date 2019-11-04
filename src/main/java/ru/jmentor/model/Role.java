@@ -57,5 +57,5 @@ public class Role {
     public int hashCode() { return Objects.hash(userRole); }
 
     @Override
-    public String toString() { return "Role{" + "id=" + id + ", userRole='" + userRole + '\'' + '}'; }
+    public String toString() { return "'userRole='" + userRole + '\'' + '}'; }
 }

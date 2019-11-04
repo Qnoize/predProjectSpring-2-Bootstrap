@@ -33,8 +33,5 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
-
+    public PasswordEncoder passwordEncoder(){ return new BCryptPasswordEncoder(); }
 }
