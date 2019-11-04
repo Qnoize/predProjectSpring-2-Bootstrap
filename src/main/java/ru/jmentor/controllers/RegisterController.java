@@ -12,6 +12,7 @@ import java.util.List;
 
 @Controller
 public class RegisterController {
+
     private UserService service;
 
     @Autowired
@@ -21,6 +22,7 @@ public class RegisterController {
 
     @GetMapping(value = "/register")
     public ModelAndView viewRegisterPage(ModelAndView modelAndView) {
+
         List<User> users = service.getAllUsers();
         modelAndView.setViewName("registerUser");
         modelAndView.addObject("list", users);
@@ -31,6 +33,7 @@ public class RegisterController {
     public ModelAndView registerNewUser(
             @ModelAttribute("user") User user,
             ModelAndView modelAndView) {
+
         if (user.getUserName().isEmpty() | user.getUserPassword().isEmpty()) {
             modelAndView.addObject("error", "Empty user Login or Password");
             modelAndView.setViewName("errorPage");

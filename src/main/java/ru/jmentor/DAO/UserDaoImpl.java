@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class UserDaoHibernateImpl implements UserDao {
+public class UserDaoImpl implements UserDao {
     private SessionFactory sessionFactory;
 
     @Autowired

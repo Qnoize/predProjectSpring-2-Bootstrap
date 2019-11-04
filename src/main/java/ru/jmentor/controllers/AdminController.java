@@ -13,6 +13,7 @@ import java.util.List;
 
 @Controller
 public class AdminController {
+
     private UserService service;
 
     @Autowired
@@ -41,6 +42,7 @@ public class AdminController {
     public ModelAndView adminDeleteUser(
             @RequestParam("id") Long id,
             ModelAndView modelAndView) {
+
         modelAndView.setViewName("redirect:/admin");
         if (id != null) { service.deleteUserById(id); }
         return modelAndView;
@@ -51,6 +53,7 @@ public class AdminController {
             @RequestParam("id") Long id,
             @RequestParam("edit") String edit,
             ModelAndView modelAndView) {
+
         User user = null;
         if (edit != null && id != null) { user = service.getUserById(id); }
         modelAndView.setViewName("adminEditUser");

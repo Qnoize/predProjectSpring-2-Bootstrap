@@ -6,6 +6,7 @@
     <link href="<c:url value="/res/style.css"/>" rel="stylesheet" type="text/css"/>
 </head>
 <body>
+<h3 align="center">${requestScope.error}</h3><br>
 <form method="POST" action="/">
     <table width="50%" cellspacing="0" cellpadding="4" align="center">
         <tr>

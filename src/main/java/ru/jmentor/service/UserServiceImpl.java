@@ -1,6 +1,7 @@
 package ru.jmentor.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.jmentor.DAO.UserDao;
@@ -12,44 +13,48 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private UserDao userDaoHibernate;
+    private UserDao userDao;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public void setRepository(UserDao userDaoHibernate) {
-        this.userDaoHibernate = userDaoHibernate;
+        this.userDao = userDaoHibernate;
     }
 
     @Override
     @Transactional
-    public List<User> getAllUsers(){ return userDaoHibernate.getAll(); }
+    public List<User> getAllUsers(){ return userDao.getAll(); }
     @Override
     @Transactional
-    public User getUserById(Long id){ return userDaoHibernate.getById(id); }
+    public User getUserById(Long id){ return userDao.getById(id); }
     @Override
     @Transactional
-    public void deleteUserById(Long id){ userDaoHibernate.delete(id); }
+    public void deleteUserById(Long id){ userDao.delete(id); }
     @Override
     @Transactional
     public void editUser(User user){
         user.setRole(Collections.singleton(new Role(1L, "user")));
-        userDaoHibernate.edit(user);
+        userDao.edit(user);
     }
     @Override
     @Transactional
     public void saveUser(User user){
         if(!userExistByName(user.getUserName())){
+            user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
             user.setRole(Collections.singleton(new Role(1L, "user")));
-            userDaoHibernate.add(user);
+            userDao.add(user);
         }
     }
     @Transactional
-    public boolean userExistByName(String userName) { return userDaoHibernate.isExistUserByName(userName); }
+    public boolean userExistByName(String userName) { return userDao.isExistUserByName(userName); }
     @Override
     @Transactional
-    public User getByName(String userName) { return userDaoHibernate.getByName(userName); }
+    public User getByName(String userName) { return userDao.getByName(userName); }
     @Override
     @Transactional
     public boolean ExistUserByNameAndPassword(String userName, String userPassword){
-        return userDaoHibernate.isExistUserByNameAndPassword(userName,userPassword);
+        return userDao.isExistUserByNameAndPassword(userName,userPassword);
     }
 }
