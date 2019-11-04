@@ -6,10 +6,11 @@
     <link href="<c:url value="/res/style.css"/>" rel="stylesheet" type="text/css"/>
 </head>
 <body>
- <h3 align="center">${requestScope.error}</h3><br>
+ <h2 align="center">Main page</h2><br>
     <div align="center" width="100">
-        <form method="POST" action="/userHome">
-            <button><a href="/" style="text-decoration: none; color: black;">Back to login</a></button>
+        <form method="GET" action="/">
+            <button><a href="/login" style="text-decoration: none; color: black;">Login</a></button>
+            <button><a href="/register" style="text-decoration: none; color: black;">Registration</a></button>
         </form>
     </div>
 </body>

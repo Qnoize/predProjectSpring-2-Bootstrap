@@ -1,9 +1,7 @@
 package ru.jmentor.model;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "userTable")
@@ -27,6 +25,14 @@ public class User {
         this.userName = userName;
         this.userPassword = userPassword;
         this.userEmail = userEmail;
+    }
+
+    public User(User user) {
+        this.id = user.getId();
+        this.userName = user.getUserName();
+        this.userPassword = user.getUserPassword();
+        this.userEmail = user.getUserEmail();
+        this.role = user.getRole();
     }
 
     @Id

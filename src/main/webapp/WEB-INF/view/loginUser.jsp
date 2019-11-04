@@ -7,7 +7,7 @@
 </head>
 <body>
 <h3 align="center">${requestScope.error}</h3><br>
-<form method="POST" action="/">
+<form method="POST" action="/login">
     <table width="50%" cellspacing="0" cellpadding="4" align="center">
         <tr>
             <td></td>
@@ -29,7 +29,7 @@
             <td></td>
             <td align="left" width="100">
                 <input type="submit" value="Enter" name="Ok">
-                <button><a href="/register" style="text-decoration: none; color: black;">Registration</a></button>
+                <button><a href="/" style="text-decoration: none; color: black;">Back to main page</a></button>
             </td>
         </tr>
     </table>

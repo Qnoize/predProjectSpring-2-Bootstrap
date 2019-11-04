@@ -1,0 +1,1 @@
+package ru.jmentor.security;import org.springframework.security.core.GrantedAuthority;import ru.jmentor.model.Role;public class RoleDetailsImpl extends Role implements GrantedAuthority {    public RoleDetailsImpl(Role role) { super(role); }    @Override    public String getAuthority() { return super.getUserRole(); }}

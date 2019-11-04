@@ -28,13 +28,18 @@ public class UserServiceImpl implements UserService {
     public List<User> getAllUsers(){ return userDao.getAll(); }
     @Override
     @Transactional
-    public User getUserById(Long id){ return userDao.getById(id); }
+    public User getUserById(Long id){
+        User user = userDao.getById(id);
+        user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
+        return user;
+    }
     @Override
     @Transactional
     public void deleteUserById(Long id){ userDao.delete(id); }
     @Override
     @Transactional
     public void editUser(User user){
+        user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
         user.setRole(Collections.singleton(new Role(1L, "user")));
         userDao.edit(user);
     }
@@ -51,7 +56,11 @@ public class UserServiceImpl implements UserService {
     public boolean userExistByName(String userName) { return userDao.isExistUserByName(userName); }
     @Override
     @Transactional
-    public User getByName(String userName) { return userDao.getByName(userName); }
+    public User getByName(String userName) {
+        User user = userDao.getByName(userName);
+        user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
+        return user;
+    }
     @Override
     @Transactional
     public boolean ExistUserByNameAndPassword(String userName, String userPassword){

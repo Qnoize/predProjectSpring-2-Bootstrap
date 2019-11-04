@@ -19,6 +19,11 @@ public class Role {
         this.userRole = userRole;
     }
 
+    public Role(Role role) {
+        this.id = role.getId();
+        this.userRole = role.getUserRole();
+    }
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,10 +57,5 @@ public class Role {
     public int hashCode() { return Objects.hash(userRole); }
 
     @Override
-    public String toString() {
-        return "Role{" +
-                "id=" + id +
-                ", userRole='" + userRole + '\'' +
-                '}';
-    }
+    public String toString() { return "Role{" + "id=" + id + ", userRole='" + userRole + '\'' + '}'; }
 }

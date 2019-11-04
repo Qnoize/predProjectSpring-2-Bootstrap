@@ -40,7 +40,7 @@
     <br>
     <div align="center" width="100">
         <form method="POST" action="/userHome">
-            <button><a href="/" style="text-decoration: none; color: black;">Back to login</a></button>
+            <button><a href="/" style="text-decoration: none; color: black;">Back to main page</a></button>
         </form>
     </div>
 </div>

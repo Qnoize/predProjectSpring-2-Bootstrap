@@ -32,7 +32,7 @@
             <td></td>
             <td>
                 <input type="submit" value="Registration" name="Ok">
-                <button><a href="/" style="text-decoration: none; color: black;">Back to login</a></button>
+                <button><a href="/" style="text-decoration: none; color: black;">Back to main page</a></button>
             </td>
         </tr>
         <tr>

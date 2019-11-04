@@ -1,7 +1,10 @@
 package ru.jmentor.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +24,7 @@ public class LoginController {
         this.service = service;
     }
 
-    @GetMapping(value = "/")
+    @GetMapping(value = "/login")
     public ModelAndView viewLoginPage(
             Authentication authentication,
             ModelAndView modelAndView,
@@ -36,7 +39,7 @@ public class LoginController {
         return modelAndView;
     }
 
-    @PostMapping(value = "/")
+    @PostMapping(value = "/login")
     public ModelAndView userAutorization(
             @RequestParam("userName") String userName,
             @RequestParam("userPassword") String userPassword,
@@ -44,21 +47,10 @@ public class LoginController {
             ModelAndView modelAndView) {
 
         if(service.ExistUserByNameAndPassword(userName, userPassword)) {
-            session.setAttribute("name", userName);
-            String role = "user";
-            if (service.getByName(userName).getRole().toString().contains("admin")) { role = "admin"; }
-            session.setAttribute("role", role);
-            if (role.equals("admin")) {
-                modelAndView.setViewName("redirect:/admin");
-                return modelAndView;
-            }
-            else {
-                modelAndView.setViewName("redirect:/userHome");
-                return modelAndView;
-            }
+           modelAndView.setViewName("userHome");
         }
         modelAndView.addObject("error", "Wrong user Login or Password(POST)");
-        modelAndView.setViewName("/");
+        modelAndView.setViewName("loginUser");
 
         return modelAndView;
     }

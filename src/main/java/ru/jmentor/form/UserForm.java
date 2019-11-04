@@ -1,1 +1,0 @@
-package ru.jmentor.form;public class UserForm {    private String userLogin;    private String userPassword;}

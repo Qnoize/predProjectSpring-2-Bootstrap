@@ -36,7 +36,7 @@ public class RegisterController {
 
         if (user.getUserName().isEmpty() | user.getUserPassword().isEmpty()) {
             modelAndView.addObject("error", "Empty user Login or Password");
-            modelAndView.setViewName("errorPage");
+            modelAndView.setViewName("mainPage");
         } else {
             service.saveUser(user);
             modelAndView.setViewName("redirect:/register");
