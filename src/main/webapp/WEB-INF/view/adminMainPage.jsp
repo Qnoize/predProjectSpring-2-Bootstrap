@@ -52,6 +52,7 @@
                             <td> ${user.userName} </td>
                             <td> ${user.userPassword} </td>
                             <td> ${user.userEmail} </td>
+                            <td> ${(user.role.toString().replaceAll("^\\[|\\]$", ""))}</td>
                             <td>
                                 <form method="GET" action="/admin/edit">
                                     <input type="submit" value="edit" name="edit">

@@ -35,25 +35,6 @@
                 <button><a href="/" style="text-decoration: none; color: black;">Back to main page</a></button>
             </td>
         </tr>
-        <tr>
-            <td align="right" width="100">Users table</td>
-            <td>
-                <table table border="1" cellspacing="0" cellpadding="2" align="center">
-                    <tr>
-                        <th>Id</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                    </tr>
-                    <c:forEach items="${requestScope.list}" var="user">
-                        <tr>
-                            <td> ${user.id} </td>
-                            <td> ${user.userName} </td>
-                            <td> ${user.userEmail} </td>
-                        </tr>
-                    </c:forEach>
-                </table>
-            </td>
-        </tr>
     </table>
 </form>
 </body>

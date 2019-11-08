@@ -5,7 +5,7 @@ import java.util.*;
 
 @Entity
 @Table(name = "userTable")
-public class User  {
+public class User {
     private Long id;
     private String userName;
     private String userPassword;
@@ -51,7 +51,7 @@ public class User  {
 
     @ManyToMany(
             targetEntity = Role.class,
-            fetch = FetchType.EAGER,
+            fetch = FetchType.LAZY,
             cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(
             name = "userRole",
@@ -92,5 +92,4 @@ public class User  {
                 ", userEmail='" + userEmail + '\'' +
                 '}';
     }
-
 }

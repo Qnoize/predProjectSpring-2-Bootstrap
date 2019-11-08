@@ -22,10 +22,7 @@ public class RegisterController {
 
     @GetMapping(value = "/register")
     public ModelAndView viewRegisterPage(ModelAndView modelAndView) {
-
-        List<User> users = service.getAllUsers();
         modelAndView.setViewName("registerUser");
-        modelAndView.addObject("list", users);
         return modelAndView;
     }
 
@@ -35,7 +32,7 @@ public class RegisterController {
             ModelAndView modelAndView) {
 
         if (user.getUserName().isEmpty() | user.getUserPassword().isEmpty()) {
-            modelAndView.addObject("error", "Empty user Login or Password");
+            modelAndView.addObject("error", "Error - Empty user Login or Password");
             modelAndView.setViewName("mainPage");
         } else {
             service.saveUser(user);

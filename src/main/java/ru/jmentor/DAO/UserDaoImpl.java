@@ -1,9 +1,11 @@
 package ru.jmentor.DAO;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.jmentor.model.User;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,18 +27,21 @@ public class UserDaoImpl implements UserDao {
     //language=SQL
     private final String SQL_SELECT_BY_NAME_AND_PASS = "FROM User WHERE userName = :userName and userPassword =:userPassword";
     //language=SQL
-    private final String SQL_SELECT_ALL = "FROM User";
+    private final String SQL_SELECT_ALL = "from User as user left join fetch user.role";
 
+    @Transactional
     @Override
     public User getById(Long id) {
         Session session = sessionFactory.openSession();
         User user = session.createQuery(SQL_SELECT_BY_ID, User.class)
                 .setParameter("id", id)
-                .getSingleResult();
+                .uniqueResult();
+        Hibernate.initialize(user.getRole());
         session.close();
         return user;
     }
 
+    @Transactional
     @Override
     public boolean isExistUserByNameAndPassword(String userName, String userPassword) {
         Session session = sessionFactory.openSession();
@@ -44,7 +49,7 @@ public class UserDaoImpl implements UserDao {
             User user = session.createQuery(SQL_SELECT_BY_NAME_AND_PASS, User.class)
                     .setParameter("userName", userName)
                     .setParameter("userPassword", userPassword)
-                    .getSingleResult();
+                    .uniqueResult();
             if(user != null){ return true; } else {return false;}
         } catch (Exception e){
             System.out.println("Ошибка верификации по логину и паролю");
@@ -53,6 +58,7 @@ public class UserDaoImpl implements UserDao {
         return false;
     }
 
+    @Transactional
     public List<User> getAll() {
         Session session = sessionFactory.openSession();
         List<User> list = new ArrayList<>();
@@ -66,7 +72,7 @@ public class UserDaoImpl implements UserDao {
         } finally { if (session.isOpen()) { session.close(); } }
         return list;
     }
-
+    @Transactional
     public void edit(User user) {
         Session session = sessionFactory.openSession();
         try {
@@ -79,6 +85,7 @@ public class UserDaoImpl implements UserDao {
         } finally { if (session.isOpen()) { session.close(); } }
     }
 
+    @Transactional
     @Override
     public void delete(Long id) {
         Session session = sessionFactory.openSession();
@@ -92,6 +99,7 @@ public class UserDaoImpl implements UserDao {
         } finally { if (session.isOpen()) { session.close(); } }
     }
 
+    @Transactional
     public void add(User user) {
         Session session = sessionFactory.openSession();
         try {
@@ -105,6 +113,7 @@ public class UserDaoImpl implements UserDao {
         } finally { if (session.isOpen()) { session.close(); } }
     }
 
+    @Transactional
     @Override
     public boolean isExistUserByName(String userName) {
         Session session = sessionFactory.openSession();
@@ -120,6 +129,7 @@ public class UserDaoImpl implements UserDao {
         return false;
     }
 
+    @Transactional
     @Override
     public User getByName(String userName) {
         Session session = sessionFactory.openSession();
@@ -127,7 +137,8 @@ public class UserDaoImpl implements UserDao {
         try {
             user = session.createQuery(SQL_SELECT_BY_NAME, User.class)
                     .setParameter("userName", userName)
-                    .getSingleResult();
+                    .uniqueResult();
+            Hibernate.initialize(user.getRole());
             if(user != null){ return user; }
         } catch (Exception e){
             System.out.println("Ошибка нахождения по имени пользователя (getByName)");

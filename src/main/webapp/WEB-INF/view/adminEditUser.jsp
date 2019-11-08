@@ -6,6 +6,7 @@
     <link href="<c:url value="/res/style.css"/>" rel="stylesheet" type="text/css"/>
 </head>
 <body>
+<h3 align="center">${requestScope.error}</h3><br>
 <form method="POST" action="/admin/edit">
     <table width="50%" cellspacing="0" cellpadding="4" items="${requestScope.user}" align="center">
         <tr>
@@ -22,7 +23,7 @@
         </tr>
         <tr>
             <td align="right">Password</td>
-            <td><input type="password" name="userPassword" value=${user.userPassword}></td>
+            <td><input type="password" name="userPassword" value=${requestScope.userPassword}></td>
         </tr>
         <tr>
             <td align="right">Email</td>
