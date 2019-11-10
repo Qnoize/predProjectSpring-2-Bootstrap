@@ -35,6 +35,7 @@ public class AdminController {
     public ModelAndView adminCreateUser(
             @ModelAttribute("user") User user,
             ModelAndView modelAndView) {
+
         if (!user.getUserName().isEmpty()&& !user.getUserPassword().isEmpty()) { service.saveUser(user); }
         modelAndView.setViewName("redirect:/admin");
         return modelAndView;

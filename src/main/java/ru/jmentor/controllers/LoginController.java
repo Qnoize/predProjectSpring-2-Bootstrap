@@ -9,14 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class LoginController {
 
-    @GetMapping(value = "/login")
+    @GetMapping(value = "/")
     public ModelAndView viewLoginPage(
             Authentication authentication,
             ModelAndView modelAndView,
             HttpServletRequest request) {
         if(authentication != null){ modelAndView.setViewName("redirect:/userHome"); }
         if(request.getParameterMap().containsKey("error")){
-            modelAndView.addObject("error", "Error - Wrong user Login or Password(GET)");
+            modelAndView.addObject("error", "Error - Wrong user Login or Password");
         }
         modelAndView.setViewName("loginUser");
         return modelAndView;

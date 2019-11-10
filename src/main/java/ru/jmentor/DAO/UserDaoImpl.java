@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.jmentor.model.User;
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.*;
 
 @Repository
 public class UserDaoImpl implements UserDao {
@@ -27,7 +27,7 @@ public class UserDaoImpl implements UserDao {
     //language=SQL
     private final String SQL_SELECT_BY_NAME_AND_PASS = "FROM User WHERE userName = :userName and userPassword =:userPassword";
     //language=SQL
-    private final String SQL_SELECT_ALL = "from User as user left join fetch user.role";
+    private final String SQL_SELECT_ALL = "FROM User AS user LEFT JOIN FETCH user.role";
 
     @Transactional
     @Override
@@ -65,6 +65,7 @@ public class UserDaoImpl implements UserDao {
         try {
             session.beginTransaction();
             list = new ArrayList<>(session.createQuery(SQL_SELECT_ALL).list());
+            list.sort(Comparator.comparingLong(User::getId));
             session.getTransaction().commit();
         } catch (Exception e){
             System.out.println("Ошибка получения всех пользователей");

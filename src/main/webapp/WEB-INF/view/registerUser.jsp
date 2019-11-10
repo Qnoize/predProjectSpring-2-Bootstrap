@@ -3,39 +3,38 @@
          pageEncoding="windows-1251"%>
 <html>
 <head>
-    <link href="<c:url value="/res/style.css"/>" rel="stylesheet" type="text/css"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="<c:url value="/res/css/style.css"/>" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-<form method="POST" action="/register">
-    <table width="50%" cellspacing="0" cellpadding="4" align="center">
-        <tr>
-            <td></td>
-            <td>
-                <div align="center">
-                    <p><h2>Register new User</h2></p>
+<form method="POST" action="/register" class="navbar-form navbar-right">
+    <div align="center">
+        <p><h2>Sign up</h2></p>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-sm-4">
+                <div class="form-group" align="center">
+                    <input class="form-control"  type="text" name="userName" id="inputLogin" placeholder="login">
+                    <input class="form-control"  type="password" name="userPassword" id="inputPassword" placeholder="password">
+                    <input class="form-control"  type="email" name="userEmail" id="inputEmail" placeholder="e-mail"><br>
+                    <div align="center" width="100">
+                        <input class="btn btn-secondary" type="submit" value="Sign up" name="Ok">
+                        <button class="btn btn-secondary"><a href="/" style="text-decoration: none; color: white;">Back to main page</a></button>
+                    </div>
                 </div>
-            </td>
-        </tr>
-        <tr>
-            <td align="right" width="100">Login</td>
-            <td><input type="text" name="userName"></td>
-        </tr>
-        <tr>
-            <td align="right">Password</td>
-            <td><input type="password" name="userPassword"></td>
-        </tr>
-        <tr>
-            <td align="right">Email</td>
-            <td><input type="text" name="userEmail"></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>
-                <input type="submit" value="Registration" name="Ok">
-                <button><a href="/" style="text-decoration: none; color: black;">Back to main page</a></button>
-            </td>
-        </tr>
-    </table>
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
 </form>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
 </body>
 </html>
