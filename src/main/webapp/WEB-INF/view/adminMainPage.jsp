@@ -53,12 +53,53 @@
                                         <td> ${user.userEmail} </td>
                                         <td> ${(user.role.toString().replaceAll("^\\[|\\]$", ""))}</td>
                                         <td>
-                                            <form method="GET" action="/admin/edit">
-                                                <input type="submit" value="edit" name="edit">
-                                                <input type="hidden" name="id" value="${user.id}">
-                                            </form>
+                                            <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
+                                                    data-target="#modalEdit${user.id}">edit
+                                            </button>
+
+                                            <div class="modal fade" id="modalEdit${user.id}" role="dialog" aria-labelledby="modalEdit${user.id}" aria-hidden="true" >
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <div class="row">
+                                                                <div class="col text-center">
+                                                                    <h3 class="modal-title" id="modalEdit${user.id}">Edit user ${user.userName}</h3>
+                                                                    <button class="close" type="button" data-dismiss="modal"aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <form method="post" action="/admin/edit">
+                                                            <div class="modal-body">
+                                                                <div class="row justify-content-center">
+                                                                    <div class="col-md-4"></div>
+                                                                    <div class="col-md-4 text-center justify-content-center">
+                                                                        <div align="center">Id</div>
+                                                                        <input class="form-control text-center" type="text" name="id"  value= ${user.id} readonly>
+                                                                        <div align="center">Login</div>
+                                                                        <input class="form-control text-center" type="text" name="userName"  value= ${user.userName}>
+                                                                        <div align="center">Password</div>
+                                                                        <input class="form-control text-center" type="password" name="userPassword" value=${requestScope.userPassword}>
+                                                                        <div align="center">E-mail</div>
+                                                                        <input class="form-control text-center" type="text" name="userEmail"  value=${user.userEmail}>
+                                                                        <div align="center">Role</div>
+                                                                        <input class="form-control text-center" type="text" name="userRole"  value=${user.role.toString().replaceAll("^\\[|\\]$", "")} readonly>
+                                                                        <br>
+                                                                    </div>
+                                                                    <div class="col-md-4"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer center-block text-center">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary">Confirm</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <form method="POST" action="/admin/delete">
-                                                <input type="submit" value="delete" name="delete">
+                                                <button type="submit" class="btn btn-secondary btn-sm">delete</button>
                                                 <input type="hidden" name="id" value="${user.id}">
                                             </form>
                                         </td>
@@ -78,7 +119,7 @@
                                         <input class="form-control"  type="password" name="userPassword" id="inputPassword" placeholder="password">
                                         <input class="form-control"  type="email" name="userEmail" id="inputEmail" placeholder="e-mail"><br>
                                         <div align="center" width="100">
-                                            <input class="btn btn-secondary" type="submit" value="Add" name="Ok">
+                                            <input class="btn btn-primary" type="submit" value="Add" name="Ok">
                                         </div>
                                     </div>
                                 </form>
@@ -90,6 +131,10 @@
         </div>
     </div>
 </div>
+
+
+
+
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

@@ -16,13 +16,13 @@
     <div class="container">
         <div class="row">
             <div class="col"></div>
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <div class="form-group" align="center">
                     <input class="form-control"  type="text" name="userName" id="inputLogin" placeholder="login">
                     <input class="form-control"  type="password" name="userPassword" id="inputPassword" placeholder="password">
                     <input class="form-control"  type="email" name="userEmail" id="inputEmail" placeholder="e-mail"><br>
                     <div align="center" width="100">
-                        <input class="btn btn-secondary" type="submit" value="Sign up" name="Ok">
+                        <input class="btn btn-primary" type="submit" value="Sign up" name="Ok">
                         <button class="btn btn-secondary"><a href="/" style="text-decoration: none; color: white;">Back to main page</a></button>
                     </div>
                 </div>

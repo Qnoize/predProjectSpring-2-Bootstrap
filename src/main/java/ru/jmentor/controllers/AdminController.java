@@ -51,33 +51,16 @@ public class AdminController {
         return modelAndView;
     }
 
-    @GetMapping(value = "/admin/edit")
-    public ModelAndView adminEditPage(
-            @RequestParam("id") Long id,
-            @RequestParam("edit") String edit,
-            ModelAndView modelAndView) {
-
-        User user = null;
-        if (edit != null && id != null) { user = service.getUserById(id); }
-        modelAndView.addObject("userPassword", "");
-        modelAndView.setViewName("adminEditUser");
-        modelAndView.addObject("user", user);
-        return modelAndView;
-    }
-
     @PostMapping(value = "/admin/edit")
     public ModelAndView adminEditUser(
             @ModelAttribute("user") User user,
             @RequestParam("userPassword") String newUserPassword,
             ModelAndView modelAndView) {
-        if(newUserPassword.isEmpty()){
-            modelAndView.addObject("error", "Error - Your password isEmpty! Enter new password");
-            modelAndView.setViewName("adminEditUser");
-        } else {
+
             user.setUserPassword(newUserPassword);
             service.editUser(user);
             modelAndView.setViewName("redirect:/admin");
-        }
+
         return modelAndView;
     }
 }
