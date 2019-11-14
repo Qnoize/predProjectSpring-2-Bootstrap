@@ -13,7 +13,7 @@ import ru.jmentor.service.UserService;
 import java.util.List;
 
 @Controller
-@PreAuthorize("hasRole('ROLE_admin')")
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class AdminController {
 
     private UserService service;

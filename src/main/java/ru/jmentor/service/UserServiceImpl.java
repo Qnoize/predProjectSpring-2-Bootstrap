@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void editUser(User user){
         user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
-        user.setRole(Collections.singleton(new Role(1L, "user")));
+        user.setRole(Collections.singleton(new Role(1L, "ROLE_USER")));
         userDao.edit(user);
     }
     @Override
@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
     public void saveUser(User user){
         if(!userExistByName(user.getUserName())){
             user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
-            user.setRole(Collections.singleton(new Role(1L, "user")));
+            user.setRole(Collections.singleton(new Role(1L, "ROLE_USER")));
             userDao.add(user);
         }
     }

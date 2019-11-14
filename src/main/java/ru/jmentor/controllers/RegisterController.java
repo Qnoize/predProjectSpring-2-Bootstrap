@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import ru.jmentor.model.User;
 import ru.jmentor.service.UserService;
-import java.util.List;
 
 @Controller
 public class RegisterController {
