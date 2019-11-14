@@ -1,15 +1,35 @@
 package ru.jmentor.model;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "userTable")
-public class User {
+public class User implements UserDetails {
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "userName")
     private String userName;
+    @Column(name = "userPassword")
     private String userPassword;
+    @Column(name = "userEmail")
     private String userEmail;
+    @ManyToMany(
+            targetEntity = Role.class,
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinTable(
+            name = "userRole",
+            joinColumns = @JoinColumn(name = "userId"),
+            inverseJoinColumns = @JoinColumn(name = "roleId"))
     private Set<Role> role = new HashSet<>();
 
     public User() { }
@@ -35,28 +55,14 @@ public class User {
         this.role = user.getRole();
     }
 
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() { return id; }
 
-    @Column(name = "userName")
     public String getUserName() { return userName; }
 
-    @Column(name = "userPassword")
     public String getUserPassword() { return userPassword; }
 
-    @Column(name = "userEmail")
     public String getUserEmail() { return userEmail; }
 
-    @ManyToMany(
-            targetEntity = Role.class,
-            fetch = FetchType.LAZY,
-            cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinTable(
-            name = "userRole",
-            joinColumns = @JoinColumn(name = "userId"),
-            inverseJoinColumns = @JoinColumn(name = "roleId"))
     public Set<Role> getRole() { return role; }
 
     public void setId(Long id) { this.id = id; }
@@ -92,4 +98,30 @@ public class User {
                 ", userEmail='" + userEmail + '\'' +
                 '}';
     }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return getRole()
+                .stream()
+                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getUserRole()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public String getPassword() { return this.userPassword; }
+
+    @Override
+    public String getUsername() { return this.userName; }
+
+    @Override
+    public boolean isAccountNonExpired() { return true; }
+
+    @Override
+    public boolean isAccountNonLocked() { return true; }
+
+    @Override
+    public boolean isCredentialsNonExpired() { return true; }
+
+    @Override
+    public boolean isEnabled() { return true; }
 }
